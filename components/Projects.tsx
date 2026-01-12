@@ -16,7 +16,7 @@ const projects = [
     result: "-60% commissions",
     stats: "ROI Immédiat",
     img: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&q=80&w=800",
-    url: "https://id-preview--cbf31c88-2ce7-4391-8512-2417b1887a44.lovable.app"
+    url: "https://fanwuramen.lovable.app"
   },
   {
     name: "The American Good Burger",
@@ -31,8 +31,8 @@ const projects = [
     type: "Expérience Traditionnelle",
     result: "SEO Dominant",
     stats: "Haute Conversion",
-    img: "https://images.unsplash.com/photo-1557872245-741f4a962abc?auto=format&fit=crop&q=80&w=1200",
-    url: "https://id-preview--d5e07fc1-a0f3-4a78-8fa5-216e867e69fd.lovable.app"
+    img: "https://www.kikkoman.fr/fileadmin/_processed_/d/2/csm_1107-recipe-page-Mexican-ramen_desktop_0c7ddb8608.jpg",
+    url: "https://taichi-ramen-experience.lovable.app"
   }
 ];
 
