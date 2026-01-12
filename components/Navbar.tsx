@@ -87,13 +87,14 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
+          {/* CTA visible uniquement sur Desktop dans la navbar */}
           <a 
             href={AUDIT_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className={`
-              relative transition-all duration-500 overflow-hidden group rounded-full
-              ${scrolled ? 'px-4 py-2 text-[8px] md:px-6 md:py-2 md:text-[9px]' : 'px-6 py-2.5 text-[9px] md:px-8 md:py-3 md:text-[10px]'}
+              hidden md:block relative transition-all duration-500 overflow-hidden group rounded-full
+              ${scrolled ? 'px-6 py-2 text-[9px]' : 'px-8 py-3 text-[10px]'}
               font-black uppercase tracking-widest bg-white text-black active:scale-95
             `}
           >
@@ -102,17 +103,19 @@ const Navbar: React.FC = () => {
 
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden z-[110] w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-white/5 active:bg-white/10"
+            className="md:hidden z-[110] w-12 h-12 flex flex-col items-center justify-center gap-1.5 rounded-full bg-white/5 active:bg-white/10 transition-colors"
+            aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
-            <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
-            <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </div>
 
-      <div className={`fixed inset-0 bg-black/95 backdrop-blur-3xl z-[105] transition-all duration-500 md:hidden ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-        <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
+      {/* Menu Mobile Full-Screen */}
+      <div className={`fixed inset-0 bg-black/98 backdrop-blur-3xl z-[105] transition-all duration-500 md:hidden ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
+        <div className="flex flex-col items-center justify-center h-full gap-10 px-8">
           {navLinks.map((link) => (
             <button 
               key={link.name} 
@@ -126,10 +129,18 @@ const Navbar: React.FC = () => {
             href={AUDIT_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full mt-4 bg-brand-primary text-black px-8 py-5 rounded-full font-black text-center text-xl shadow-[0_20px_40px_rgba(0,229,255,0.2)]"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full mt-6 bg-brand-primary text-black px-8 py-5 rounded-full font-black text-center text-xl shadow-[0_20px_40px_rgba(0,229,255,0.25)] active:scale-95 transition-transform"
           >
             Audit Gratuit
           </a>
+          
+          <button 
+            onClick={() => setMobileMenuOpen(false)}
+            className="mt-8 text-gray-500 uppercase text-[10px] font-black tracking-widest border-b border-gray-800 pb-1"
+          >
+            Fermer
+          </button>
         </div>
       </div>
     </nav>
