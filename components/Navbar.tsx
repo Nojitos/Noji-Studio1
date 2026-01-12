@@ -8,8 +8,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-      
+      setScrolled(window.scrollY > 10);
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
@@ -30,7 +29,7 @@ const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
     const element = document.querySelector(id);
     if (element) {
-      const offset = 80; // Account for navbar height
+      const offset = scrolled ? 70 : 100;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -46,38 +45,34 @@ const Navbar: React.FC = () => {
   const AUDIT_LINK = "https://tally.so/r/QKRKKl";
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 flex justify-center ${scrolled ? 'py-4' : 'py-8'}`}>
-      {/* Centered Pill Container */}
+    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 flex justify-center ${scrolled ? 'py-2 md:py-4' : 'py-6 md:py-8'}`}>
       <div className={`
-        relative flex items-center justify-between w-full transition-all duration-500
+        relative flex items-center justify-between w-full transition-all duration-500 px-4
         ${scrolled 
-          ? 'max-w-4xl mx-4 px-6 py-3 rounded-full bg-black/40 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]' 
-          : 'max-w-7xl mx-auto px-6 py-0 bg-transparent border-transparent'
+          ? 'max-w-[95%] md:max-w-4xl py-2.5 rounded-full bg-black/60 backdrop-blur-2xl border border-white/10 shadow-2xl' 
+          : 'max-w-7xl py-0 bg-transparent border-transparent'
         }
       `}>
-        {/* Scroll Progress Bar (Inside Pill) */}
         {scrolled && (
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[1px] bg-brand-primary/50 transition-all duration-300 z-10 rounded-full" style={{ width: `${scrollProgress * 0.8}%` }} />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[1px] bg-brand-primary/40 transition-all duration-300 z-10 rounded-full" style={{ width: `${scrollProgress * 0.8}%` }} />
         )}
 
-        {/* Brand/Logo */}
         <div 
           className="flex items-center gap-3 group cursor-pointer z-[110]" 
           onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
         >
           <div className="flex flex-col">
-            <span className="text-2xl md:text-3xl font-light tracking-tighter leading-none group-hover:text-brand-primary transition-all duration-500">
+            <span className={`font-light tracking-tighter leading-none transition-all duration-500 ${scrolled ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl'}`}>
               noji<span className="text-brand-primary">.</span>
             </span>
             {!scrolled && (
-              <span className="text-[7px] text-gray-500 font-black tracking-[0.3em] uppercase mt-1 opacity-60 group-hover:opacity-100 transition-opacity">
+              <span className="text-[6px] md:text-[7px] text-gray-500 font-black tracking-[0.3em] uppercase mt-1 opacity-60">
                 STUDIO
               </span>
             )}
           </div>
         </div>
 
-        {/* Desktop Navigation Links - Centered in space */}
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             <button 
@@ -91,42 +86,38 @@ const Navbar: React.FC = () => {
           ))}
         </div>
 
-        {/* Desktop CTA Button */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <a 
             href={AUDIT_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className={`
-              hidden sm:block relative transition-all duration-500 overflow-hidden group rounded-full
-              ${scrolled ? 'px-6 py-2 text-[9px]' : 'px-8 py-3 text-[10px]'}
-              font-black uppercase tracking-widest
+              relative transition-all duration-500 overflow-hidden group rounded-full
+              ${scrolled ? 'px-4 py-2 text-[8px] md:px-6 md:py-2 md:text-[9px]' : 'px-6 py-2.5 text-[9px] md:px-8 md:py-3 md:text-[10px]'}
+              font-black uppercase tracking-widest bg-white text-black active:scale-95
             `}
           >
-            <div className="absolute inset-0 bg-white group-hover:bg-brand-primary transition-colors duration-500" />
-            <span className="relative text-black">Audit Gratuit</span>
+            Audit Gratuit
           </a>
 
-          {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden z-[110] w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            className="md:hidden z-[110] w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-white/5 active:bg-white/10"
           >
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
-            <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-black/98 backdrop-blur-3xl z-[105] transition-all duration-500 md:hidden ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-        <div className="flex flex-col items-center justify-center h-full gap-10">
+      <div className={`fixed inset-0 bg-black/95 backdrop-blur-3xl z-[105] transition-all duration-500 md:hidden ${mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
+        <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
           {navLinks.map((link) => (
             <button 
               key={link.name} 
               onClick={() => scrollToSection(link.href)}
-              className="text-4xl font-light tracking-tighter text-gray-400 hover:text-brand-primary transition-colors"
+              className="text-4xl font-light tracking-tighter text-white/80 active:text-brand-primary transition-colors"
             >
               {link.name}
             </button>
@@ -135,7 +126,7 @@ const Navbar: React.FC = () => {
             href={AUDIT_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 bg-brand-primary text-black px-12 py-5 rounded-full font-black text-xl shadow-[0_0_50px_rgba(0,229,255,0.4)]"
+            className="w-full mt-4 bg-brand-primary text-black px-8 py-5 rounded-full font-black text-center text-xl shadow-[0_20px_40px_rgba(0,229,255,0.2)]"
           >
             Audit Gratuit
           </a>
